@@ -1,0 +1,183 @@
+# 1.
+(not needed these 2)
+./trec_eval -m all_trec -q qrel_validation tfidf.run | grep -E "^ndcg_cut_10\s"
+0.2492
+./trec_eval -m all_trec -q qrel_validation bm25.run | grep -E "^ndcg_cut_10\s"
+0.3987
+
+./trec_eval -m all_trec -q qrel_validation jelinek_mercer_01.run | grep -E "^ndcg_cut_10\s"
+0.3991
+./trec_eval -m all_trec -q qrel_validation jelinek_mercer_05.run | grep -E "^ndcg_cut_10\s"
+0.3823
+./trec_eval -m all_trec -q qrel_validation jelinek_mercer_09.run | grep -E "^ndcg_cut_10\s"
+0.3676
+
+./trec_eval -m all_trec -q qrel_validation dirichlet_prior_500.run | grep -E "^ndcg_cut_10\s"
+0.4055
+./trec_eval -m all_trec -q qrel_validation dirichlet_prior_1000.run | grep -E "^ndcg_cut_10\s"
+0.4002
+./trec_eval -m all_trec -q qrel_validation dirichlet_prior_1500.run | grep -E "^ndcg_cut_10\s"
+0.4026
+
+./trec_eval -m all_trec -q qrel_validation absolute_discounting_01.run | grep -E "^ndcg_cut_10\s"
+0.3614
+./trec_eval -m all_trec -q qrel_validation absolute_discounting_05.run | grep -E "^ndcg_cut_10\s"
+0.3768
+./trec_eval -m all_trec -q qrel_validation absolute_discounting_09.run | grep -E "^ndcg_cut_10\s"
+0.3949
+
+./trec_eval -m all_trec -q qrel_validation plm_KG_500.run | grep -E "^ndcg_cut_10\s"
+0.2754
+./trec_eval -m all_trec -q qrel_validation plm_KT_500.run | grep -E "^ndcg_cut_10\s"
+0.2782
+./trec_eval -m all_trec -q qrel_validation plm_KCO_500.run | grep -E "^ndcg_cut_10\s"
+0.2785
+./trec_eval -m all_trec -q qrel_validation plm_KCI_500.run | grep -E "^ndcg_cut_10\s"
+0.2767
+./trec_eval -m all_trec -q qrel_validation plm_KP_500.run | grep -E "^ndcg_cut_10\s"
+0.2726
+
+./trec_eval -m all_trec -q qrel_validation plm_KG_1000.run | grep -E "^ndcg_cut_10\s"
+0.2760
+./trec_eval -m all_trec -q qrel_validation plm_KT_1000.run | grep -E "^ndcg_cut_10\s"
+0.2782
+./trec_eval -m all_trec -q qrel_validation plm_KCO_1000.run | grep -E "^ndcg_cut_10\s"
+0.2785
+./trec_eval -m all_trec -q qrel_validation plm_KCI_1000.run | grep -E "^ndcg_cut_10\s"
+0.2767
+./trec_eval -m all_trec -q qrel_validation plm_KP_1000.run | grep -E "^ndcg_cut_10\s"
+0.2726
+
+./trec_eval -m all_trec -q qrel_validation plm_KG_1500.run | grep -E "^ndcg_cut_10\s"
+0.2754
+./trec_eval -m all_trec -q qrel_validation plm_KT_1500.run | grep -E "^ndcg_cut_10\s"
+0.2782
+./trec_eval -m all_trec -q qrel_validation plm_KCO_1500.run | grep -E "^ndcg_cut_10\s"
+0.2785
+./trec_eval -m all_trec -q qrel_validation plm_KCI_1500.run | grep -E "^ndcg_cut_10\s"
+0.2767
+./trec_eval -m all_trec -q qrel_validation plm_KP_1500.run | grep -E "^ndcg_cut_10\s"
+0.2767
+
+
+-> best on qrel_validation are
+tfidf
+bm25
+jelinek_mercer_01
+dirichlet_prior_500
+absolute_discounting_09
+plm_KCO_500
+
+
+#2.
+
+# ndcg@10
+./trec_eval -m all_trec -q qrel_test tfidf.run | grep -E "^ndcg_cut_10\s"
+0.2635
+./trec_eval -m all_trec -q qrel_test bm25.run | grep -E "^ndcg_cut_10\s"
+0.4086
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_01.run | grep -E "^ndcg_cut_10\s"
+0.3489
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_500.run | grep -E "^ndcg_cut_10\s"
+0.4085
+./trec_eval -m all_trec -q qrel_test absolute_discounting_09.run | grep -E "^ndcg_cut_10\s"
+0.3853
+./trec_eval -m all_trec -q qrel_test plm_KCO_500.run | grep -E "^ndcg_cut_10\s"
+0.2716
+
+# map@1000
+./trec_eval -m all_trec -q qrel_test tfidf.run | grep -E "^map_cut_1000\s"
+0.1352
+./trec_eval -m all_trec -q qrel_test bm25.run | grep -E "^map_cut_1000\s"
+0.2173
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_01.run | grep -E "^map_cut_1000\s"
+0.1893
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_500.run | grep -E "^map_cut_1000\s"
+0.2104
+./trec_eval -m all_trec -q qrel_test absolute_discounting_09.run | grep -E "^map_cut_1000\s"
+0.2027
+./trec_eval -m all_trec -q qrel_test plm_KCO_500.run | grep -E "^map_cut_1000\s"
+0.0368
+
+# precision@5
+./trec_eval -m all_trec -q qrel_test tfidf.run | grep -E "^P_5\s"
+0.2700
+./trec_eval -m all_trec -q qrel_test bm25.run | grep -E "^P_5\s"
+0.4133
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_01.run | grep -E "^P_5\s"
+0.3450
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_500.run | grep -E "^P_5\s"
+0.4200
+./trec_eval -m all_trec -q qrel_test absolute_discounting_09.run | grep -E "^P_5\s"
+0.3967
+./trec_eval -m all_trec -q qrel_test plm_KCO_500.run | grep -E "^P_5\s"
+0.3000
+
+# recall@1000
+./trec_eval -m all_trec -q qrel_test tfidf.run | grep -E "^recall_1000\s"
+0.5961
+./trec_eval -m all_trec -q qrel_test bm25.run | grep -E "^recall_1000\s"
+0.6524
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_01.run | grep -E "^recall_1000\s"
+0.6203
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_500.run | grep -E "^recall_1000\s"
+0.6287
+./trec_eval -m all_trec -q qrel_test absolute_discounting_09.run | grep -E "^recall_1000\s"
+0.6268
+./trec_eval -m all_trec -q qrel_test plm_KCO_500.run | grep -E "^recall_1000\s"
+0.0546
+
+
+#3.
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_01.run | grep -E "^ndcg_cut_10\s"
+0.3489
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_05.run | grep -E "^ndcg_cut_10\s"
+0.3839
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_09.run | grep -E "^ndcg_cut_10\s"
+0.3744
+
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_500.run | grep -E "^ndcg_cut_10\s"
+0.4085
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_1000.run | grep -E "^ndcg_cut_10\s"
+0.4145
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_1500.run | grep -E "^ndcg_cut_10\s"
+0.4111
+
+./trec_eval -m all_trec -q qrel_test absolute_discounting_01.run | grep -E "^ndcg_cut_10\s"
+0.3702
+./trec_eval -m all_trec -q qrel_test absolute_discounting_05.run | grep -E "^ndcg_cut_10\s"
+0.3987
+./trec_eval -m all_trec -q qrel_test absolute_discounting_09.run | grep -E "^ndcg_cut_10\s"
+0.3853
+
+./trec_eval -m all_trec -q qrel_test plm_KCO_500.run | grep -E "^ndcg_cut_10\s"
+0.2716
+./trec_eval -m all_trec -q qrel_test plm_KCO_1000.run | grep -E "^ndcg_cut_10\s"
+0.2716
+./trec_eval -m all_trec -q qrel_test plm_KCO_1500.run | grep -E "^ndcg_cut_10\s"
+0.2716
+
+#4.
+
+./trec_eval -m all_trec -q qrel_test tfidf.run | grep -E "^ndcg_cut_10\s" > scores_ndcg10_tfidf
+./trec_eval -m all_trec -q qrel_test bm25.run | grep -E "^ndcg_cut_10\s" > scores_ndcg10_bm25
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_01.run | grep -E "^ndcg_cut_10\s" > scores_ndcg10_jelinek_mercer_01
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_500.run | grep -E "^ndcg_cut_10\s" > scores_ndcg10_dirichlet_prior_500
+./trec_eval -m all_trec -q qrel_test absolute_discounting_09.run | grep -E "^ndcg_cut_10\s" > scores_ndcg10_absolute_discounting_09
+./trec_eval -m all_trec -q qrel_test plm_KCO_500.run | grep -E "^ndcg_cut_10\s" > scores_ndcg10_plm_KCO_500
+
+
+./trec_eval -m all_trec -q qrel_test tfidf.run | grep -E "^map\s" > scores_map_tfidf
+./trec_eval -m all_trec -q qrel_test bm25.run | grep -E "^map\s" > scores_map_bm25
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_01.run | grep -E "^map\s" > scores_map_jelinek_mercer_01
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_500.run | grep -E "^map\s" > scores_map_dirichlet_prior_500
+./trec_eval -m all_trec -q qrel_test absolute_discounting_09.run | grep -E "^map\s" > scores_map_absolute_discounting_09
+./trec_eval -m all_trec -q qrel_test plm_KCO_500.run | grep -E "^map\s" > scores_map_plm_KCO_500
+
+
+#5.
+./trec_eval -m all_trec -q qrel_test tfidf.run | grep -E "^ndcg_cut_5\s"
+./trec_eval -m all_trec -q qrel_test bm25.run | grep -E "^ndcg_cut_5\s"
+./trec_eval -m all_trec -q qrel_test jelinek_mercer_01.run | grep -E "^ndcg_cut_5\s"
+./trec_eval -m all_trec -q qrel_test dirichlet_prior_500.run | grep -E "^ndcg_cut_5\s"
+
