@@ -26,4 +26,8 @@ Models:
 3) lab 3
 4) lab 4
 
-- 
+5. ML
+Consists of models that I have constructed for the machine learning 1 & 2 courses. It includes the EM model, VAE deduction and bayesian network models.
+
+6. AI project
+In order to track the activation pattern within certain genes, we implemented and applied various unspervised methods to check the activation pattern for each group of genes.
