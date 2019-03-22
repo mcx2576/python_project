@@ -1,0 +1,60 @@
+2. Color Spaces
+Based on human perception of colors, more specifically, the trichromacy, RGB model is used as a basic of digital cameras. The organism's retina contains cone cells which help us to identify different colors. The interations among these cone cells mediated the trichromatic color vision and enables humans and some other animals to see different colors.
+A digital camera replaces film with a sensory array. Then the light activates imaging sensors array such as CCD and CMOS with a certain time period. Then, the cells in arrays are light-sensitive diode that convert photons into electrons. In order to display RGB values, color filter array were used in mosaic pattern(e.g.Bayer patterns) in digital cameras in order to display the color values.
+3. Opponent color space:
+Opponent color space is a HVS model consists of three elements.-O1 is luminance component -O2 is the red-green channel -O3 is the blue-yellow channel. Humans have difficulty in perceiving redish-greens and bluish-yellows. With this model, it will be rather easy for them to identify these colors. After the transformation, the yellow and blue texts in the background are difficult to read while black text on the white paper is easy to read.
+Ref:chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/https://engineering.purdue.edu/~bouman/ece637/notes/pdf/Opponent.pdf
+Normalized RGB (rgb) Color Space:
+Lights and shadows might cause distortions in an image. If we nomalize the RGB values, it's possible for us to get rid of it. Aftert the transformation, the white and black colors become undistinguishable.
+Ref:http://aishack.in/tutorials/normalized-rgb/
+
+HSV Color Space:
+The HSV color space consists of three channels: the Hue, Saturation and the intensity. The Hus channel represents the dominant length of the spectural power distribution. Then comes the Saturation, the amount of color or purity of color which could be clearly identified. Morever, intensity is the brightness of the color. 
+Unlike RGB, HSV separates the image intensity , from chroma or the color information. Hence HSV color space can be quiet useful if researchers want to extract certain features such as Hue, Saturation of the intensity from the current picture.
+
+
+YCbCr Color Space:
+Human eyes have different sensitity to color and brightness.The YCbCr stands for different meanings, Y: Luminance, Cb: Chrominance-Blue and Cr: Chrominance-Red. Luminance is the same as intensity, Cb is strong with image containing the color of blue and Cr is strong in places of occurrence and reddish colours.
+Based on the physical framework of the eye, we don't really need to retain all color information in our arrays, but part of information that eyes might be sensitive to. There are also different transformation schemes designed for different purposes.Ref:https://makarandtapaswi.wordpress.com/2009/07/20/why-the-rgb-to-ycbcr/
+
+Grayscale color space:
+The grayscale color space could indictates the intensity (how bright is a particular pixel) of a certain image. The information is represented by a two dimensional array of bytes, which is equal to the width and height of the image. Additionally, a grayscale image has only one channel, which represents the intensity of the white. Luminance is very important in distinguishing visual features. Grayscales transformation is quiet essential if we want to detect features such as edges from a picture. ref: https://stackoverflow.com/questions/12752168/why-we-should-use-gray-scale-for-image-processing
+------------------------------------------------------------------------------------------
+More color space model
+CMYK color space model: The CMYK color model is the quadruples color space model widely applied in printing. CMYK represents four inks in some color printing, C(cyan), M(magenta), Y(yellow) and K(black). Compared to addictive color model such as RGB, white is the neutual color or the backgrounds, whereas black results from a full combination of different color inks.
+Lab color space model: The lab color space describes mathematically all perceivable colors in three dimentions: L for lightness, a for red-green and b for blue-yellow.The lab color space model is used when graphics for print have to be converted from RGB to CMYK, as the lab gamut includes both the RGB and CMYK gamut.
+ 
+------------------------------------------------------------
+Task 3
+The specular component:
+It could account for the highlights caused by viewpoint, geometry and illumination. More specifically, the specular term could be explained by light rays that reflect directly off the surface, creating visible highlights in the image.
+Image decomposition is the process of separating an image in conceptually and theorectically different compoents, under two perspectives 1) addressing content-specific vision applications 2) studying image pattern formation.
+Geometric structure component: The structure part for 1D feature detection, sgementation, object recognition and shape analysis.
+Texture component:The texture component can be used for texture' segregation and classification, surface analysis ,shape/orientation from texture.
+
+---------------------------------
+Advantages of using synthetic images:
+1. Shaded images can be generated with different light source directions for the same surface.
+2. The true depth information enables us to compute the error and compare the performance.
+---------------------------------
+Image formation:
+1. The true material color can be obtained by analysing the reflectance picture. It returns the RGB(184, 140.9, 107.99), which corrresponds to brown in the color scheme.
+3. This is caused by the shading effect in the graph. 
+--------------------
+Gray-world algorithm
+Examples when gray-world algorithms fail:
+1. Under the condition of incandescent lighting on overcast days, the ouput images might not be satisfactory. It is due to the fact that the gray-world algorithms automatically generate exposure on pictures. It might overcompensate the strong tint and generate a blue picture.
+2. If we take a picture of green mountains in the foggy weather, the algorithm will cover green trees and grass with reddish color which makes the picture in a weird warm tone.
+
+Reasons: The assumption of gray-world algorithm is that "The average reflectance in a scene under a neutual light source is achromatic". The gray-world algorithm is sensitive to large uniformly colored surfaces, which often leads to the failing of the assumptions.
+--------------------
+Simpler Lambertian models:
+Max-RGB: 
+Assumption: "The maximum reflectance in a scene is achromatic" In other words, the surface with perfect reflectance property with reflect the full range of light it captures. Hence, the color of this perfect reflectance is exactly the color of the source.
+Gray-edge:
+Assumption: "The pth Minkowski norm of the image derivative is achromatic." The gray-edge methods are based on the spatial derivation of order n. The Minkowski-norm p that determines the relative weights of the multiple measurements from which the final illuminant is estimated. A
+high Minkowski norm emphasizes larger measurements, whereas a low
+Minkowski norm equally distributes weights among the measurements.
+Physics based method
+This method implements the dichromatic reflection model of image formation, which makes use of information about the physical interaction between the light source and the objects in a scene. 
+Assumption: All pixel of one surface will fall on the same RGB color space. If multiples of such planes are found, correspondingto various different surfaces, then the color of the light source is estimated using the intersection of those planes.The disadvantage of this method is also obvious, it is hard to retrieve such specular reflections and color clipping might occur. 

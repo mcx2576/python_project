@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <title>Bar chart</title>
+        <script type="text/javascript" src="d3.js"></script>
+        <style type="text/css">
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+        //convert month into character
+        var formatTime = d3.timeFormat("%b")
+        var formatLabel = d3.format(".2f")
+        //define width, height and barpadding
+        var w = 500;
+        var h = 400;
+        var barpadding = 10
+        //define dataset related variables
+        var dataset, xScale, yScale, xAxis, yAxis
+        //load in the data
+        d3.csv("meteo.csv", function(data){
+            var datamean =[]
+        for (i=0;i<1826; i++) {if (i==0){
+            var c=1
+            var s=parseFloat(data[i].temperature)
+            } 
+            else if (data[i-1].month!=data[i].month){var b={year: data[i-1].year,month: formatTime(new Date("", data[i-1].month, "")),avg_temperature:s/(10*c)}
+            datamean.push(b)
+            var c=1
+            var s=parseFloat(data[i].temperature)} else if (i==1825){s=parseFloat(data[i].temperature)+s
+             c=c+1
+            var b={year:data[i].year,month: formatTime(new Date("", data[i-1].month, "")),avg_temperature:s/(10*c)}
+            datamean.push(b)} 
+            else{
+            s=parseFloat(data[i].temperature)+s
+            c=c+1}} 
+        var dataset=[]
+        //Define the year of the dataset
+        var year = 2014 
+        for (i=0;i<datamean.length;i++){if (datamean[i].year==d3.format("2")(year)){dataset.push(datamean[i])}}
+        var svg = d3.select("body")
+                                .append("svg")
+                                .attr("width",w+10*barpadding)
+                                .attr("height",h)
+
+         var xScale =d3.scaleBand()
+                        .rangeRound([0, w])
+                        .domain(d3.range(dataset.length))
+                        .paddingInner(0.05);
+                       
+
+        var yScale = d3.scaleLinear()
+                        .range([h-1.8*barpadding,0])
+                        .domain([0,d3.max(dataset, function(d) { return d.avg_temperature })])
+			
+			//Define Y axis
+			//var yAxis = d3.axisLeft()
+           // .scale(yScale)
+                       // .ticks(5)
+	//define title
+        var title = svg.append("text")
+             .attr("class", "title")
+             .attr("dy", ".71em")
+             .attr("dx", 4*barpadding)
+            .text(year)		
+           //draw bars
+            svg.selectAll(".bar")
+               .data(dataset)
+               .enter()
+               .append("rect")
+               .attr("class", "bar")
+                .attr("x", function(d, i) {
+                return xScale(i)+3*barpadding;
+        })
+               .attr("y", function(d){
+                             return yScale(d.avg_temperature)
+               })
+               .attr("width", xScale.bandwidth())
+               // (w-3*barpadding)/dataset.length-0.5*barpadding)
+               .attr("height", function(d){
+                   return h-yScale(d.avg_temperature)-1.8*barpadding
+               })
+               .attr("fill",  "orange")
+               .attr("stroke", "grays")
+               
+                //Generate average temperature labels in back
+            var labels = svg.selectAll("g")
+			   .data(dataset)
+			   .enter()
+			   .append("text")
+			   .text(function(d){return formatLabel(d.avg_temperature)})
+			   .attr("text-anchor", "middle")
+			   .attr("x",  function(d, i) {
+                return xScale(i)+5*barpadding
+               })
+               .attr("width", xScale.bandwidth())
+			   .attr("y", function(d) {
+			   		return yScale(d.avg_temperature) + 14;
+			   })
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "10px")
+			   .attr("fill", "black");
+                //Define X axis
+               var xAxis = d3.axisBottom()
+                        .scale(d3.scaleBand()
+                        .rangeRound([0, w])
+                        .domain(dataset.map(function(d) { return d.month; }))
+                        .paddingInner(0.05))
+                        .ticks(12)                          
+
+               svg.append("g")
+               .attr("class", "axis")
+               .attr("transform", "translate(25," + (h - 2*barpadding) + ")")
+               .call(xAxis)
+
+               var yAxis =svg.append("g")
+			    .attr("class", "axis")
+			    .attr("transform", "translate(" + 3*barpadding + ",0)")
+			    .call(d3.axisLeft(yScale));
+
+                 // Allow the arrow keys to change the displayed year.
+            window.focus();
+            d3.select(window).on("keydown", function() {
+    switch (d3.event.keyCode) {
+      case 37: year = Math.max(2011, year - 1); break;
+      case 39: year = Math.min(2015, year + 1); break;
+    }
+    update();
+});
+    function update() {
+    title.text(year);
+
+
+    var dataset=[]
+    for (i=0;i<datamean.length;i++){if (datamean[i].year==d3.format("2")(year)){dataset.push(datamean[i])}}
+    var yScale = d3.scaleLinear()
+                        .range([h-1.8*barpadding,0])
+                        .domain([0,d3.max(dataset, function(d) { return d.avg_temperature })])
+     svg.selectAll("rect")
+        .data(dataset)
+        .transition()
+        .duration(750)
+        .attr("class", "bar")
+        .attr("y", function(d){
+                      return yScale(d.avg_temperature)
+        })       
+        .attr("height", function(d){
+            return  h-yScale(d.avg_temperature)-1.8*barpadding
+        })
+        .attr("fill",  "orange")
+        .attr("stroke", "grays")
+        
+       
+       yAxis.transition()
+        .duration(750)
+			    .attr("class", "axis")
+			    .attr("transform", "translate(" + 3*barpadding + ",0)")
+			    .call(d3.axisLeft(yScale));
+
+       
+        labels.data(dataset)
+        .transition()
+        .duration(750)
+			   .text(function(d){return formatLabel(d.avg_temperature)})
+			   .attr("y", function(d) {
+			   		return  yScale(d.avg_temperature) + 14;
+			   })
+
+  }
+});
+
+              </script>
+    </body>
+</html>

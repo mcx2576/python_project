@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+    <head>
+        <meta charset="utf-8">
+        <title>Bar chart</title>
+        <script type="text/javascript" src="d3.js"></script>
+    </head>
+    <body>
+        <script type="text/javascript">
+        var data = [5,10,15,20,25,30,30,25,20,15,10,5];
+        d3.select("body").selectAll("p")
+            .data(data)
+            .enter()
+            .append("p")
+            .text(function(d){ return "var data = [" + d +"]" } );
+        </script>
+    </body>
+</html>
+
